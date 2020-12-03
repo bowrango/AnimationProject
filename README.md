@@ -7,6 +7,6 @@ Mario walks 10 units to the right
 `Mario = translate(Mario, 10, 0)`
 
 A Goomba follows him
-'Goomba = translate(Goomba, 10, 0)'
+`Goomba = translate(Goomba, 10, 0)`
 
 This way we can keep consistency and have have a bunch of specific functions to transform a certain element :)
