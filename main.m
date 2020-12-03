@@ -1,12 +1,13 @@
 %% Intro
 
-% This main script will outline the story for our animation. It will
-% implement various transformation functions in loops to animate a character.
+% This main script outlines an adventure of Mario, where he travels from
+% level to level. Each of us is responsible for a particular scene (level)
+% in the animation. We will implement a generic set of transformation
+% functions which take in a Mario position vector, and output a new
+% position vector based on the transformation. Additional functions will also
+% be used to handle logistics of the animation, such as a background. 
 
-% Each of us will be responsible for one of these scenes. Once we figure out a 
-% story, we should include the expected inputs and outputs.
-
-%% SCENE 1 
+%% SCENE 1 - Chris
 
 % (Panning Camera) Large background, smaller view follows mario
 % Background:SunnyMarioLevel.jpg
@@ -50,9 +51,7 @@ for i = 0:30
 % Asset(s): Red Goomba
 end
 
-%% SCENE 2
-
-%Scene 2: Tim's "Underworld" level
+%% SCENE 2 - Tim
 
 %%Transition -----------
 
@@ -145,10 +144,7 @@ end
 %end
 
 
-%% SCENE 3
-
-% Scene III will follow Scene II, in which ____.
-% The transition from Scene II to Scene III will look like ____.
+%% SCENE 3 - Ian
 
 % In Scene III, Mario is in an ice cave. He is nearly at the end of his
 % journey, but some obstacles remain. Note: use threshold 150.
@@ -258,9 +254,68 @@ end
 %     
 % end
 
-% From here, Mario will do ____ to transition into the final scene.
+%% SCENE 4 - Matt
 
-%% SCENE 4
+% Mario will walk into Boo's mansion where he will encounter the final
+% boss. This scene will involve Mario fighting Boo, which will be broken down
+% into several key engagements:
+
+% 1. Boo will appear behind Mario, and will move closer to him (translation)
+
+% Move Boo
+% for
+% end
+
+% 2. Mario will turn around (reflection) and run towards Boo (translation).
+
+% reflect Mario
+
+% move Mario towards Boo
+% for 
+% end
+
+% 3. Mario will attempt to jump onto Boo's head (translation), and Boo will
+% react to this attack (scale, or shear)
+
+% have Mario jump
+% for
+% end
+
+% Boo reacts to attack 
+
+% 4. Fighting will continue with more jumps and dodging movements
+% (translation, scaling). Boo will shoot projectiles and change his form
+% to confuse Mario
+
+% Boo shoots projectile 
+% for 
+% end
+
+% Mario dodges
+% for 
+% end
+
+% Boo morphs his form to confuse Mario, and delievers a finishing attack
+% for 
+% end
+
+% 5. Mario will be defeated by Boo, starting a death animation. Mario will
+% rotate about his local axis and will gradually morph into a ghost.
+
+% kill Mario
+% for
+% end
+
+% 6. Ghost Mario will then leave the scene by floating to the
+% top and vanishing
+
+% transcend Mario
+% for
+% end
 
 
-% This is mine
+
+
+
+
+
