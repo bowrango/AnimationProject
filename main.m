@@ -256,6 +256,46 @@ end
 
 %% SCENE 4 - Matt
 
+clear all; close all
+
+% create Mario and Boo matrices
+mario = imread('jumpingmario.jpg');
+boo = imread('Boo.png');
+mario = pic2points(mario)';
+boo = pic2points(boo)';
+mario(3, :) = ones(1, length(mario));
+boo(3, :) = ones(1, length(boo));
+
+% scale and move characters 
+mario = scale(mario, 0.25, 0.25);
+boo = scale(boo, 0.3, 0.3);
+boo = translate(boo, 100, 100);
+
+% draw their positions
+h_mario = draw(mario);
+h_boo = draw(boo);
+
+% have Boo and Mario move
+for i = 1:10
+    % update characters
+    mario = translate(mario, 10, 0);
+    boo = translate(boo, -12, 5);
+    
+    % delete previous images
+    delete(h_mario);
+    delete(h_boo);
+    
+    % draw the new character positions
+    h_mario = draw(mario);
+    h_boo = draw(boo);
+    pause(0.3)
+end
+
+
+
+
+
+
 % Mario will walk into Boo's mansion where he will encounter the final
 % boss. This scene will involve Mario fighting Boo, which will be broken down
 % into several key engagements:

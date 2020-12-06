@@ -13,14 +13,14 @@ function element = rotate(element, theta, centroid_idx)
     shift = [0; 0; 0] - centroid;
    
     % move the element back to the origin
-    translate(element, shift(1), shift(2))
+    element = translate(element, shift(1), shift(2));
     
     % apply the rotation
     R = [cos(theta) -sin(theta) 0; sin(theta) cos(theta) 0; 0 0 1];
     element = R*element;
     
     % move element back to original location in the scene 
-    translate(element, -shift(1), -shift(2))
+    element = translate(element, -shift(1), -shift(2));
    
 end
 
