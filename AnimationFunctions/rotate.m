@@ -6,11 +6,11 @@ function element = rotate(element, theta, centroid_idx)
     % forth between the origin. We can modify this to contain a loop if
     % things slow down too much. 
     
-    % We can assume the elements remain in the z = 0 dimension
+    % We can assume the elements remain in the z = 1 dimension
     
     % Specifiy some pixel of your element to be the center of rotation.   
-    centroid = element(centroid_idx);
-    shift = [0; 0; 0] - centroid;
+    centroid = element(:, centroid_idx);
+    shift = [0; 0; 1] - centroid;
    
     % move the element back to the origin
     element = translate(element, shift(1), shift(2));

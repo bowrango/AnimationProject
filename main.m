@@ -269,31 +269,44 @@ boo(3, :) = ones(1, length(boo));
 % scale and move characters 
 mario = scale(mario, 0.25, 0.25);
 boo = scale(boo, 0.3, 0.3);
-boo = translate(boo, 100, 100);
+boo = translate(boo, 200, 100);
 
 % draw their positions
 h_mario = draw(mario);
 h_boo = draw(boo);
 
-% have Boo and Mario move
-for i = 1:10
+% example scene of Mario jumping on Boo
+for i = 1:15
     % update characters
-    mario = translate(mario, 10, 0);
-    boo = translate(boo, -12, 5);
+    mario = translate(mario, 10, 18);
+    boo = translate(boo, 5, 0);
     
-    % delete previous images
+    % remove previous characters
     delete(h_mario);
     delete(h_boo);
     
-    % draw the new character positions
+    % draw new ones 
     h_mario = draw(mario);
     h_boo = draw(boo);
-    pause(0.3)
+     
+    pause(0.2)
 end
 
+for i = 1:15
+    
+    mario = translate(mario, 10, -4);
+    delete(h_mario);
+    h_mario = draw(mario);
+    pause(0.2)
+end
 
-
-
+for i = 1:10
+    boo = scale(boo, 0.80, 1);
+    delete(h_boo);
+    h_boo = draw(boo);
+    
+    pause(0.2)
+end
 
 
 % Mario will walk into Boo's mansion where he will encounter the final
