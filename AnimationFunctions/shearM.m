@@ -1,4 +1,4 @@
-function element = shear(element, factor, direction)
+function element = shearM(element, factor, direction)
 
     % x centerpoint using (minimum x + maximum x) / 2
     CenterpointX = (min(element(1,:)) + max(element(1,:)))/2;

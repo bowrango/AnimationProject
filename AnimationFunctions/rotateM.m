@@ -1,4 +1,4 @@
-function element = rotate(element, theta)
+function element = rotateM(element, theta)
     
     % x centerpoint using (minimum x + maximum x) / 2
     CenterpointX = (min(element(1,:)) + max(element(1,:)))/2;

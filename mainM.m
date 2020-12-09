@@ -16,43 +16,93 @@ hold on;
 mario_params = {hb, [1 0 0], 1};
 boo_params = {hb, [1 1 1], 0.5};
 fb_params = {hb, [0.6 0.8 1], 1};
-kingboo_params = {hb, [1 1 1], 0.5};
+kingboo_params = {hb, [1 1 1], 0.4};
+toad_params = {hb, [1 0 0], 1};
+bulletbill_params = {hb, [0 0 0], 1};
 
 set(gca,'color','none','handlevisibility','off','visible','off');
 
-% create element matrcies
+% create element matrices
 mario = imread('jumpingmario.jpg');
 boo = imread('Boo.png');
 fireball = imread('boofireball.jpg');
 kingboo = imread('kingboo.jpg');
+toad = imread('toad.jpg');
+bulletbill = imread('bulletbill.jpg');
 
 mario = pic2points(mario)';
 boo = pic2points(boo)';
 fireball = pic2points(fireball)';
 kingboo = pic2points(kingboo)';
+toad = pic2points(toad)';
+bulletbill = pic2points(bulletbill)';
 
 mario(3, :) = ones(1, length(mario));
 boo(3, :) = ones(1, length(boo));
 fireball(3, :) = ones(1, length(fireball));
 kingboo(3, :) = ones(1, length(kingboo));
+toad(3, :) = ones(1, length(toad));
+bulletbill(3, :) = ones(1, length(bulletbill));
 
 % == ANIMATION BEGINS ==
 
 tic
 
-% Mario enters the scene
-mario = scaleM(mario, 0.15, 0.15);
-mario = reflectM(mario, 'y');
-mario = translateM(mario, 420, -31);
-h_mario = drawM(mario, mario_params);
+bulletbill = reflectM(bulletbill, 'y');
+toad = scaleM(toad, 0.8, 0.8);
+bulletbill = scaleM(bulletbill, 0.8, 0.8);
+bulletbill = translateM(bulletbill, 550, 100);
+toad = translateM(toad, 550, 150);
 
-% Mario jumps off from bullet bill
-for i = 1:32
-    mario = translateM(mario, -2, -1); delete(h_mario);
-    h_mario = drawM(mario, mario_params);
+h_toad = drawM(toad, toad_params);
+h_bulletbill = drawM(bulletbill, bulletbill_params);
 
+% Toad enters the scene on the bulletbill
+for i = 1:5
+    bulletbill = translateM(bulletbill, -15, 0); delete(h_bulletbill)
+    toad = translateM(toad, -15, 0); delete(h_toad)
+    
+    h_toad = drawM(toad, toad_params);
+    h_bulletbill = drawM(bulletbill, bulletbill_params);
+    
     pause(0.01)
 end
+
+% Toad jumps off bulletbill
+for i = 1:20
+    bulletbill = translateM(bulletbill, -15, 0); delete(h_bulletbill)
+    toad = translateM(toad, 0, 2); delete(h_toad)
+    
+    h_toad = drawM(toad, toad_params);
+    h_bulletbill = drawM(bulletbill, bulletbill_params);
+    
+    pause(0.01)
+end
+
+for i = 1:20
+    bulletbill = translateM(bulletbill, -15, 0); delete(h_bulletbill)
+    toad = translateM(toad, 0, -5); delete(h_toad)
+    
+    h_toad = drawM(toad, toad_params);
+    h_bulletbill = drawM(bulletbill, bulletbill_params);
+    
+    pause(0.01)
+end
+
+pause(0.5)
+
+% Toad's star power runs out
+h_toad = flashingM(h_toad, 15, 0.8);
+
+% Toad morphs back into Mario
+mario = scaleM(mario, 0.15, 0.15);
+mario = reflectM(mario, 'y');
+mario = translateM(mario, 335, -65);
+
+[B, M] = matchM(toad, mario);
+delete(h_toad); 
+mario = morphM(B , M, mario_params);
+h_mario = drawM(mario, mario_params);
 
 % Mario moves forward a bit, skeptically
 for i = 1:50
@@ -249,12 +299,75 @@ for i = 1:50
     pause(0.04)
 end
 
-% King Boo appears
-h_kingboo = drawM(kingboo, kingboo_params);
+% King Boo materializes behind Mario
+kingboo = scaleM(kingboo, 0.6, 0.6);
+kingboo = translateM(kingboo, 150, 150);
+h_kingboo = materializeM(kingboo, kingboo_params, 1.5, 100);
+
+% King Boo looks at Mario
+for i = 1:10
+    kingboo = rotateM(kingboo, pi/4/10); delete(h_kingboo)
+    h_kingboo = drawM(kingboo, kingboo_params);
+    
+    pause(0.1)
+end
+
+% Mario turns around and freaks out
+mario = reflectM(mario, 'y'); delete(h_mario)
+h_mario = drawM(mario, mario_params);
+
+for i = 1:10
+    mario = rotateM(mario, pi/6/10); delete(h_mario)
+    h_mario = drawM(mario, mario_params);
+    
+    pause(0.1)
+end
+
+% Mario turns and tries to run way
+mario = reflectM(mario, 'y'); delete(h_mario)
+h_mario = drawM(mario, mario_params);
+
+for i = 1:50
+    mario = translateM(mario, -5, 0); delete(h_mario)
+    h_mario = drawM(mario, mario_params);
+    
+    kingboo = translateM(kingboo, -10, -6); delete(h_kingboo)
+    h_kingboo = drawM(kingboo, kingboo_params);
+    
+    pause(0.01)
+end
+
+% Mario dies 
+for i = 1:20
+    mario = rotateM(mario, -pi/3/20);
+    mario = translateM(mario, 1, 0); delete(h_mario)
+    h_mario = drawM(mario, mario_params);
+    
+    kingboo = translateM(kingboo, -10, -6); delete(h_kingboo)
+    h_kingboo = drawM(kingboo, kingboo_params);
+    
+    pause(0.01)
+end
+
+% Mario morphs into a Boo
+boo = translateM(boo, 160, 0); delete(h_boo)
+% h_boo = drawM(boo, boo_params);
+
+[B, M] = matchM(mario, boo);
+delete(h_mario); 
+boo = colormorphM(B , M, boo_params, mario_params);
+h_boo = drawM(boo, boo_params);
+
+% Boo floats to the top of the scene
+for i = 1:50
+    boo = translateM(boo, 0, 10); delete(h_boo)
+    h_boo = drawM(boo, boo_params);
+    
+    pause(0.02)
+end
 
 toc
 
-
-
+% GAME OVER
 
 

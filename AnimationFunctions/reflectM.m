@@ -1,4 +1,4 @@
-function element = reflect(element, axis)
+function element = reflectM(element, axis)
     %MatrixSize = size(Character, 2); %copy the input matrix size
 
     % x centerpoint using (minimum x + maximum x) / 2

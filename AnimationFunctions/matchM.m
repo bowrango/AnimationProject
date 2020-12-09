@@ -1,5 +1,5 @@
 %Match their sizes
-function [CharacterOut1 , CharacterOut2] = SizeMatchM(Character1, Character2)
+function [CharacterOut1 , CharacterOut2] = matchM(Character1, Character2)
 
     char1size = length(Character1(1,:));
     char2size = length(Character2(1,:));

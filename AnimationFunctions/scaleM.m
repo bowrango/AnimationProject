@@ -1,4 +1,4 @@
-function element = scale(element, y_scale, x_scale)
+function element = scaleM(element, y_scale, x_scale)
  
     % x centerpoint using (minimum x + maximum x) / 2
     CenterpointX = (min(element(1,:)) + max(element(1,:)))/2;
