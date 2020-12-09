@@ -1,26 +1,28 @@
-function element = rotate(element, theta, centroid_idx)
-    % Rotate an element some angle theta
+function element = rotate(element, theta)
     
-    % NOTE: Smoother rotations using this function in a loop might be
-    % expensive as each step rotation will translate the element back and
-    % forth between the origin. We can modify this to contain a loop if
-    % things slow down too much. 
+    % x centerpoint using (minimum x + maximum x) / 2
+    CenterpointX = (min(element(1,:)) + max(element(1,:)))/2;
     
-    % We can assume the elements remain in the z = 1 dimension
+    % y centerpoint using (minimum y + maximum y) / 2
+    CenterpointY = (min(element(2,:)) + max(element(2,:)))/2;
     
-    % Specifiy some pixel of your element to be the center of rotation.   
-    centroid = element(:, centroid_idx);
-    shift = [0; 0; 1] - centroid;
-   
-    % move the element back to the origin
-    element = translate(element, shift(1), shift(2));
+    %create a ones matrix to build x distance to origin
+    xFix = ones(1,length(element(1,:))); 
+    xFix = CenterpointX .* xFix;
+    
+    % creates a ones matrix to build y distance to origin
+    yFix = ones(1,length(element(2,:))); 
+    yFix = CenterpointY .* yFix;
+    
+    %move to orign
+    elementShift = [xFix; yFix; zeros(1,length(element(1,:)))];
+    element = element - elementShift;
     
     % apply the rotation
     R = [cos(theta) -sin(theta) 0; sin(theta) cos(theta) 0; 0 0 1];
     element = R*element;
     
-    % move element back to original location in the scene 
-    element = translate(element, -shift(1), -shift(2));
+    element = element + elementShift; 
    
 end
 

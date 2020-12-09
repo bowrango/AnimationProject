@@ -1,5 +1,4 @@
-function element = reflect(element, axis)
-    %MatrixSize = size(Character, 2); %copy the input matrix size
+function element = shear(element, factor, direction)
 
     % x centerpoint using (minimum x + maximum x) / 2
     CenterpointX = (min(element(1,:)) + max(element(1,:)))/2;
@@ -18,17 +17,16 @@ function element = reflect(element, axis)
     %move to orign
     elementShift = [xFix; yFix; zeros(1,length(element(1,:)))];
     element = element - elementShift;
-    
-    %spin the element
-    switch axis
-        case 'x'
-            R = [1 0 0; 0 -1 0; 0 0 1];
-        case 'y'
-            R = [-1 0 0; 0 1 0; 0 0 1];
+
+    switch direction
+        case 'verticle'
+            S = [1 0 0; factor 1 0; 0 0 1];
+        case 'horizontal'
+            S = [1 factor 0; 0 1 0; 0 0 1];
     end
-    element = R*element;
     
-    %send the element home
+    element = S*element;
+    
     element = element + elementShift; 
 end
 
